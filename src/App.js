@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import AvailablePosts from "./components/AvailablePosts";
+import NightSwitch from "./HOC/NightSwich";
+import {useEffect, useState} from "react";
+import classes from "./App.module.css"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [nightMode, setNightMode] = useState(false);
+
+    useEffect(() => {
+        if (nightMode) {
+            document.body.classList.add(classes.nightMode);
+        } else {
+            document.body.classList.remove(classes.nightMode);
+        }
+    }, [nightMode]);
+
+    const nightModeHandler = (newMode) => {
+        setNightMode(newMode);
+    };
+
+
+    return (
+        <div>
+            <NightSwitch nightMode={nightMode} onClick={nightModeHandler} />
+            <AvailablePosts />
+        </div>
+    );
+};
 
 export default App;
